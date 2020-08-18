@@ -5,7 +5,9 @@ import android.animation.AnimatorSet
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.content.ContextCompat
 import com.tenclouds.fluidbottomnavigation.KEY_FRAME_IN_MS
+import com.tenclouds.fluidbottomnavigation.R
 import com.tenclouds.fluidbottomnavigation.extension.interpolators
 import com.tenclouds.fluidbottomnavigation.extension.scaleYAnimator
 import com.tenclouds.fluidbottomnavigation.extension.translationYAnimator

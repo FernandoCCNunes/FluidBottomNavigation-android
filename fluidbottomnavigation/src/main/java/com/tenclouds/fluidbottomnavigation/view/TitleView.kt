@@ -2,6 +2,7 @@ package com.tenclouds.fluidbottomnavigation.view
 
 import android.animation.AnimatorSet
 import android.content.Context
+import android.graphics.Color
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator

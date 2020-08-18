@@ -1,6 +1,7 @@
 package com.tenclouds.fluidbottomnavigation
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
@@ -14,7 +15,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.LinearLayout
+import androidx.annotation.ColorRes
 import androidx.annotation.VisibleForTesting
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.tenclouds.fluidbottomnavigation.extension.calculateHeight
@@ -50,6 +53,10 @@ class FluidBottomNavigation : FrameLayout {
 
     var accentColor: Int = ContextCompat.getColor(context, R.color.accentColor)
     var backColor: Int = ContextCompat.getColor(context, R.color.backColor)
+        set(value) {
+            field = value
+            updateNavigationViewBackgroundColor()
+        }
     var iconColor: Int = ContextCompat.getColor(context, R.color.textColor)
     var iconSelectedColor: Int = ContextCompat.getColor(context, R.color.iconColor)
     var textColor: Int = ContextCompat.getColor(context, R.color.iconSelectedColor)
@@ -71,7 +78,7 @@ class FluidBottomNavigation : FrameLayout {
         }
 
     private var backgroundView: View? = null
-    private val views: MutableList<View> = ArrayList()
+    private val views: ArrayList<View> = arrayListOf()
     private var lastItemClickTimestamp = 0L
 
     private fun init(attrs: AttributeSet?) {
@@ -168,6 +175,7 @@ class FluidBottomNavigation : FrameLayout {
                     }
             drawItemView(itemPosition)
         }
+
     }
 
     private fun drawItemView(position: Int) {
@@ -204,13 +212,31 @@ class FluidBottomNavigation : FrameLayout {
                 setTintColor(accentColor)
             }
 
+            topContainer.setColor(backColor)
+
+            backgroundContainer.setBackgroundColor(backColor)
+
             backgroundContainer.setOnClickListener {
+                updateNavigationViewBackgroundColor()
                 val nowTimestamp = SystemClock.uptimeMillis()
                 if (abs(lastItemClickTimestamp - nowTimestamp) > ITEMS_CLICKS_DEBOUNCE) {
                     selectTab(position)
                     lastItemClickTimestamp = nowTimestamp
                 }
             }
+        }
+    }
+
+    private fun updateNavigationViewBackgroundColor() {
+        for (i in 0 until views.size) {
+            updateNavigationItemBackgroundColor(views[i])
+        }
+    }
+
+    private fun updateNavigationItemBackgroundColor(view: View) {
+        with(view) {
+            topContainer.setColor(backColor)
+            backgroundContainer.setBackgroundColor(backColor)
         }
     }
 

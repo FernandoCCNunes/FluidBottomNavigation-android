@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.tenclouds.fluidbottomnavigation.FluidBottomNavigationItem
+import com.tenclouds.fluidbottomnavigation.listener.OnTabSelectedListener
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -13,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         fluidBottomNavigation.accentColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
-        fluidBottomNavigation.backColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
+        fluidBottomNavigation.backColor = ContextCompat.getColor(this, R.color.colorAccent)
         fluidBottomNavigation.textColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
         fluidBottomNavigation.iconColor = ContextCompat.getColor(this, R.color.colorPrimary)
         fluidBottomNavigation.iconSelectedColor = ContextCompat.getColor(this, R.color.iconSelectedColor)
@@ -35,5 +36,12 @@ class MainActivity : AppCompatActivity() {
                         FluidBottomNavigationItem(
                                 getString(R.string.profile),
                                 ContextCompat.getDrawable(this, R.drawable.ic_profile)))
+
+        fluidBottomNavigation.onTabSelectedListener = object: OnTabSelectedListener {
+            override fun onTabSelected(position: Int) {
+                fluidBottomNavigation.backColor = ContextCompat.getColor(this@MainActivity, R.color.colorPrimary)
+            }
+
+        }
     }
 }

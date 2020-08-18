@@ -2,23 +2,32 @@ package com.tenclouds.fluidbottomnavigation.view
 
 import android.animation.AnimatorSet
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import com.tenclouds.fluidbottomnavigation.KEY_FRAME_IN_MS
 import com.tenclouds.fluidbottomnavigation.R
 import com.tenclouds.fluidbottomnavigation.extension.interpolators
 import com.tenclouds.fluidbottomnavigation.extension.scaleAnimator
 import com.tenclouds.fluidbottomnavigation.extension.translationYAnimator
 
-internal class TopContainerView @JvmOverloads constructor(context: Context,
-                                                          attrs: AttributeSet? = null,
-                                                          defStyleAttr: Int = 0)
+
+internal class TopContainerView @JvmOverloads
+constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0)
     : AppCompatImageView(context, attrs, defStyleAttr), AnimatedView {
 
+    var fluidDrawable: Drawable = AppCompatResources.getDrawable(context, R.drawable.top)!!.mutate()
+
     init {
-        setImageDrawable(ContextCompat.getDrawable(context, R.drawable.top))
+        setImageDrawable(fluidDrawable)
         translationY = 100f
+    }
+
+    fun setColor(color: Int) {
+        val wrappedDrawable = DrawableCompat.wrap(fluidDrawable)
+        DrawableCompat.setTint(wrappedDrawable, color)
     }
 
     override val selectAnimator by lazy {

@@ -16,6 +16,7 @@ internal class IconView @JvmOverloads constructor(context: Context,
     init {
         scaleX = 0.9f
         scaleY = 0.9f
+
     }
 
     var selectColor = 0
